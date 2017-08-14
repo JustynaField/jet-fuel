@@ -1,6 +1,55 @@
 body {
-  background-color: #b7e5e8;
+  background-color: #69adb5;
   text-align: center;
+  color: #1b2b3a;
+  font-family: 'Didact Gothic', sans-serif;
+}
+
+h1{
+  font-size: 70px;
+  font-family: 'Indie Flower', cursive;
+}
+
+.icon {
+  width: 100px;
+  vertical-align: bottom;
+}
+
+.intro {
+  font-family: 'Handlee', cursive;
+  font-size: 25px;
+  color: black;
+  letter-spacing: .15em;
+  margin-top: -10px;
+  margin-bottom: 40px;
+}
+
+main {
+  width: 70%;
+  margin: auto;
+  border: 8px solid #1a91a1;
+  padding: 30px;
+}
+
+.create-folder {
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+h2 {
+  margin: 0px;
+}
+
+#folder-name {
+  width: 400px;
+  padding-left: 20px;
+  font-size: 18px;
+}
+
+#create-folder {
+  width: 100px;
+  font-size: 18px;
 }
 
 .read {

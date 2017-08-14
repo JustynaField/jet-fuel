@@ -4,25 +4,31 @@
     <meta charset="utf-8">
     <title>Jet Fuel</title>
     <link rel="stylesheet" href="style.css">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Indie+Flower" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Handlee|Indie+Flower" rel="stylesheet">
   </head>
   <body>
     <header>
-      <h1>Jet Fuel</h1>
+      <h1>Jet <span><img src='icon.svg' class='icon'></span> Fuel</h1>
+      <p class='intro'>An app to shorten your URL and store it in a thematic folder</p>
     <header>
     <main>
-      <div>
-        <h2>Select a folder</h2>
-        <!-- <input type='text'/> -->
-      </div>
-      <div>
-        <h2>Create a new folder</h2>
-        <input type='text'/>
-        <button>button</button>
-      </div>
-      <div>
+      <!-- <div>
         <h2>Shorten your URL:</h2>
         <input type='text'placeholder="Enter URL here"/>
+      </div> -->
+      <!-- <div>
+        <h2>Select a folder</h2>
+        <input type='text'/>
+      </div> -->
+      <div class='create-folder'>
+        <h2>Create a folder</h2>
+        <input type='text' placeholder="Folder Name" id='folder-name'/>
+        <button id='create-folder'>create</button>
       </div>
+
+      <div class='folders-area'></div>
     </main>
   </body>
   <script>window.jQuery || document.write('<script src="jquerymin.js"><\/script>')</script>
