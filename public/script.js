@@ -9,7 +9,10 @@ $('#create-folder').on('click', function() {
 })
 
 function createNewFolder() {
-  $('.folders-area').prepend(
-    '<div><h3>' + folderName.val() + '</h3></div>'
+  $('.folders-list').prepend(
+    '<div class="card">' +
+      '<h3>' + folderName.val() + '</h3>'
+      + '<img src="icons/garbage.svg" class="garbage" />' +
+    '</div>'
   )
 }

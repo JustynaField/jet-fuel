@@ -94,6 +94,31 @@ h2 {
   padding-left: 20px;
 }
 
-.read {
-  background-color: yellow;
+
+/*folder styling*/
+.card {
+  margin: 20px;
+  min-width: 140px;
+  min-height: 50px;
+  border: 2px solid #edc350
+}
+
+.folders-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card h3 {
+  margin: 12px 5px;
+  font-family: 'Handlee', cursive;
+  letter-spacing: .15em;
+}
+
+.garbage {
+  width: 12px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  /*margin-top: 7px;
+  margin-right: 7px;*/
 }
