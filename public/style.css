@@ -20,15 +20,21 @@ h1{
   font-size: 25px;
   color: black;
   letter-spacing: .15em;
+  width: 70%;
+  margin: auto;
   margin-top: -10px;
   margin-bottom: 40px;
 }
 
 main {
-  width: 70%;
+  width: 65%;
   margin: auto;
   border: 8px solid #1a91a1;
   padding: 30px;
+}
+
+button {
+  color: #1b2b3a;
 }
 
 .create-folder {
@@ -37,19 +43,55 @@ main {
   justify-content: space-between;
 }
 
+#create-folder{
+  height: 41.5px;
+  border: none;
+  background-color: #1a91a1;
+}
+
+#create-folder:focus {
+  outline: none;
+}
+
+#create-folder:hover {
+  background-color: #edc350;
+}
+
+.existing-folders {
+  text-align: left
+}
+
 h2 {
   margin: 0px;
 }
 
+.create {
+  width: 30%;
+  margin-right: 1%;
+}
+
 #folder-name {
-  width: 400px;
+  width: 50%;
   padding-left: 20px;
   font-size: 18px;
+  margin-right: 1%;
+}
+
+#folder-name:focus {
+  outline: 4px solid #edc350;
 }
 
 #create-folder {
-  width: 100px;
+  width: 15%;
   font-size: 18px;
+}
+
+.existing-folders {
+  margin-top: 20px;
+}
+
+.existing-folders h2 {
+  padding-left: 20px;
 }
 
 .read {
