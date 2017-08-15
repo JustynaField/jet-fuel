@@ -7,32 +7,33 @@ $('#create-folder').on('click', function(e) {
 })
 
 const createNewFolder = () => {
-  $('.folders-list').prepend(
+  $('.folders-list').append(
     '<div class="card">' +
       '<h3 class="name">' + folderName.val() + '</h3>' +
-      '<button class="delete">x</button>' +
+      // '<button class="delete">x</button>' +
     '</div>'
   )
-  deleteFolder()
+  // deleteFolder()
 }
 
-const deleteFolder = () => {
-  $('.card').on('click', '.delete', function() {
-    $(this).parent().remove('.card')
-    $('.folder-details').empty();
-
-    // $(this).remove('.card')
-  })
-}
+// const deleteFolder = () => {
+//   $('.folder-details').on('click', '.delete', function() {
+//
+//     $('.folder-details').remove();
+//     // $(this).closest().remove('.card');
+//   })
+// }
 
 $('.folders-list').on('click', '.card', function() {
 
-  const folderId = $(this).closest('.name').attr('id')
-  const target = $(this);
+  // const folderId = $(this).closest('.name').attr('id')
+  // const card = $(this);
 
-  listFolderDetails(target);
-  $(this).addClass('selected')
+  listFolderDetails();
+  $(this).addClass('selected');
+  $(this).siblings().removeClass('selected');
 })
+
 
 // const showOneFolder = (selected) {
 //   $('.folders-list').each(function(index) {
@@ -44,23 +45,18 @@ $('.folders-list').on('click', '.card', function() {
 //   $('.folders-list').empty()
 // }
 
-const listFolderDetails = (target, folderId) => {
-
+const listFolderDetails = (folderId) => {
   $('.folder-details').empty();
-  // $('.folders-list').siblings('.folders-list').removeClass('selected')
 
-  const folderName = $(target).closest('.card').find('h3')
-
+  // const folderName = $(target).closest('.card').find('h3')
   $('.folder-details').append(
       '<div>' +
-        '<p>'+ folderName +'</p>' +
+        // '<p>'+ folderName +'</p>' +
         '<p>'+ folderId +'</p>' +
         '<input type="text" placeholder="enter URL here"/>' +
         '<button>Submit</button>' +
         '<div class="saved-links">Saved Links:</div>' +
+        // '<button class="delete">delete this folder</button>' +
       '</div>'
   );
-  $(target).siblings('.folder-details').toggle();
-    $(target).parent().siblings().removeClass('.selected')
-  // $(target).siblings('.folders-list').toggle();
 }
