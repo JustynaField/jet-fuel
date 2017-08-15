@@ -111,7 +111,7 @@ h2 {
 .card {
   margin: 20px;
   min-width: 100px;
-  min-height: 40px;
+  min-height: 36px;
   border: 2px solid #edc350;
   border-radius: 10px;
   position: relative;
@@ -122,9 +122,10 @@ h2 {
 }
 
 .card h3 {
-  margin: 10px 15px;
+  margin: 7px 15px;
   font-family: 'Handlee', cursive;
   letter-spacing: .15em;
+  font-size: 19px;
 }
 
 .selected {
