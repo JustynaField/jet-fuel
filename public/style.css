@@ -79,7 +79,7 @@ h2 {
 #folder-name {
   width: 50%;
   padding-left: 20px;
-  font-size: 18px;
+  font-size: 17px;
   margin-right: 1%;
 }
 
@@ -89,7 +89,7 @@ h2 {
 
 #create-folder {
   width: 15%;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .existing-folders {
@@ -125,18 +125,20 @@ h2 {
   margin: 10px 15px;
   font-family: 'Handlee', cursive;
   letter-spacing: .15em;
+  padding-right: 20px;
 }
 
 .selected {
   background-color: #edc350;
 }
 
-/*.garbage {
+.delete {
   position: absolute;
   top: 0;
   right: 0;
   margin-top: 7px;
   margin-right: 7px;
-  color: #edc350;
+  color: #1b2b3a;
   font-size: 18px;
-}*/
+  opacity: .5;
+}

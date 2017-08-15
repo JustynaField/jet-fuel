@@ -10,8 +10,19 @@ const createNewFolder = () => {
   $('.folders-list').prepend(
     '<div class="card">' +
       '<h3 class="name">' + folderName.val() + '</h3>' +
+      '<button class="delete">x</button>' +
     '</div>'
   )
+  deleteFolder()
+}
+
+const deleteFolder = () => {
+  $('.card').on('click', '.delete', function() {
+    $(this).parent().remove('.card')
+    $('.folder-details').empty();
+
+    // $(this).remove('.card')
+  })
 }
 
 $('.folders-list').on('click', '.card', function() {
@@ -36,7 +47,7 @@ $('.folders-list').on('click', '.card', function() {
 const listFolderDetails = (target, folderId) => {
 
   $('.folder-details').empty();
-  $('.folders-list').siblings('.folders-list').removeClass('selected')
+  // $('.folders-list').siblings('.folders-list').removeClass('selected')
 
   const folderName = $(target).closest('.card').find('h3')
 
@@ -50,5 +61,6 @@ const listFolderDetails = (target, folderId) => {
       '</div>'
   );
   $(target).siblings('.folder-details').toggle();
+    $(target).parent().siblings().removeClass('.selected')
   // $(target).siblings('.folders-list').toggle();
 }
