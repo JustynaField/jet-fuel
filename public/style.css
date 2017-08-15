@@ -3,6 +3,7 @@ body {
   text-align: center;
   color: #1b2b3a;
   font-family: 'Didact Gothic', sans-serif;
+  font-size: 14px;
 }
 
 h1{
@@ -29,7 +30,7 @@ h1{
 main {
   width: 65%;
   margin: auto;
-  border: 8px solid #1a91a1;
+  border: 6px solid #1a91a1;
   padding: 30px;
 }
 
@@ -37,14 +38,19 @@ button {
   color: #1b2b3a;
 }
 
-.create-folder {
-  height: 40px;
+.form {
+  height: 36px;
   display: flex;
   justify-content: space-between;
+  margin: 10px 0;
+}
+
+#url-input {
+  width: 72%;
 }
 
 #create-folder{
-  height: 41.5px;
+  height: 37.5px;
   border: none;
   background-color: #1a91a1;
 }
@@ -96,29 +102,41 @@ h2 {
 
 
 /*folder styling*/
-.card {
-  margin: 20px;
-  min-width: 140px;
-  min-height: 50px;
-  border: 2px solid #edc350
-}
 
 .folders-list {
   display: flex;
   flex-wrap: wrap;
 }
 
+.card {
+  margin: 20px;
+  min-width: 100px;
+  min-height: 40px;
+  border: 2px solid #edc350;
+  border-radius: 10px;
+  position: relative;
+}
+
+.card:hover {
+  background-color: #edc350;
+}
+
 .card h3 {
-  margin: 12px 5px;
+  margin: 10px 15px;
   font-family: 'Handlee', cursive;
   letter-spacing: .15em;
 }
 
-.garbage {
-  width: 12px;
+.selected {
+  background-color: #edc350;
+}
+
+/*.garbage {
   position: absolute;
   top: 0;
   right: 0;
-  /*margin-top: 7px;
-  margin-right: 7px;*/
-}
+  margin-top: 7px;
+  margin-right: 7px;
+  color: #edc350;
+  font-size: 18px;
+}*/
