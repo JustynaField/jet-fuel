@@ -109,8 +109,8 @@ h2 {
 }
 
 .card {
-  margin: 20px;
-  min-width: 100px;
+  margin: 5px;
+  width: 90%;
   min-height: 36px;
   border: 2px solid #edc350;
   border-radius: 10px;
@@ -132,13 +132,36 @@ h2 {
   background-color: #edc350;
 }
 
-/*.delete {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin-top: 7px;
-  margin-right: 7px;
-  color: #1b2b3a;
-  font-size: 18px;
-  opacity: .5;
-}*/
+
+/*expandable */
+
+#toggle {
+  display: none;
+  visibility: hidden;
+}
+
+label::before {
+  font-family: Consolas, monaco, monospace;
+  font-weight: bold;
+  font-size: 15px;
+  content: "+";
+  vertical-align: text-top;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 3px;
+  background: radial-gradient(ellipse at center, #CCC 50%, transparent 50%);
+}
+
+#expand {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.5s;
+}
+
+#toggle:checked ~ #expand {
+  height: 250px;
+}
+#toggle:checked ~ label::before {
+  content: "-";
+}

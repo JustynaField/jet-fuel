@@ -10,7 +10,7 @@ const createNewFolder = () => {
   $('.folders-list').append(
     '<div class="card">' +
       '<h3 class="name">' + folderName.val() + '</h3>' +
-      // '<button class="delete">x</button>' +
+      '<div class="folder-details"></div>' +
     '</div>'
   )
   // deleteFolder()
@@ -27,7 +27,7 @@ const createNewFolder = () => {
 $('.folders-list').on('click', '.card', function() {
 
   // const folderId = $(this).closest('.name').attr('id')
-  // const card = $(this);
+  const card = $(this);
 
   listFolderDetails();
   $(this).addClass('selected');
@@ -45,12 +45,15 @@ $('.folders-list').on('click', '.card', function() {
 //   $('.folders-list').empty()
 // }
 
-const listFolderDetails = (folderId) => {
+const listFolderDetails = (card, folderId) => {
   $('.folder-details').empty();
+  $('card').siblings().empty()
 
   // const folderName = $(target).closest('.card').find('h3')
   $('.folder-details').append(
-      '<div>' +
+    '<input id="toggle" type="checkbox" checked>' +
+    '<label for="toggle"></label>' +
+      '<div id="expand">' +
         // '<p>'+ folderName +'</p>' +
         '<p>'+ folderId +'</p>' +
         '<input type="text" placeholder="enter URL here"/>' +
