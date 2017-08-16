@@ -1,16 +1,18 @@
 var folderName = $('#folder-name');
 
+$(document).ready(function() {
+  fetchFolders();
+})
+
+
 //form for creating folders
 $('#create-folder').on('click', function(e) {
   e.preventDefault();
-  createNewFolder();
+  printFolderToPage();
+  postFolder();
   $('#folder-name').val('');
 })
 
-const createNewFolder = () => {
-  printFolderToPage();
-  postFolder();
-}
 
 const printFolderToPage = () => {
   $('.folders-list').append(
@@ -26,8 +28,21 @@ const fetchFolders = () => {
     .then(res => res.json())
     .then(data => {
       console.log(data)
+      printAllFolders(data)
     })
     .catch(error => console.log('Error fetching folders: ', error))
+}
+
+
+//printing all folders to page:
+const printAllFolders = (folders) => {
+  folders.map(folder => {
+    $('.folders-list').append(
+      '<div class="card">' +
+        '<h3 class="name">' + folder.name + '</h3>' +
+      '</div>'
+    )
+  })
 }
 
 // const folderParameter = () => {
@@ -84,7 +99,6 @@ const listFolderDetails = (folderId) => {
         '<input type="text" placeholder="enter URL here"/>' +
         '<button>Submit</button>' +
         '<div class="saved-links">Saved Links:</div>' +
-        // '<button class="delete">delete this folder</button>' +
       '</div>'
   );
 }
