@@ -98,9 +98,8 @@ app.get('/api/v1/links', (request, response) => {
     })
 })
 
-// ***********************************************************
 //POST a LINK to a SPECIFIC FOLDER
-app.post('/api/v1/folders/:id/links/:id', (request, response) => {
+app.post('/api/v1/folders/:id/links', (request, response) => {
   const newLink = request.body;
 
   for(let requiredParameter of ['url']) {
@@ -119,7 +118,6 @@ app.post('/api/v1/folders/:id/links/:id', (request, response) => {
       response.status(500).json({ error })
     })
 })
-//*******************************************************
 
 //GET: requesting all LINKS OF A SPECIFIC FOLDER:
 app.get('/api/v1/folders/:id/links', (request, response) => {

@@ -10,10 +10,8 @@ const createNewFolder = () => {
   $('.folders-list').append(
     '<div class="card">' +
       '<h3 class="name">' + folderName.val() + '</h3>' +
-      // '<button class="delete">x</button>' +
     '</div>'
   )
-  // deleteFolder()
 }
 
 // const deleteFolder = () => {
