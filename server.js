@@ -61,7 +61,7 @@ app.post('/api/v1/folders', (request, response) => {
     }
   }
 
-  database('folders').insert(newFolder, 'id')
+  database('folders').insert(newFolder, ['id', 'name'])
     .then(folder => {
       response.status(201).json({ id: folder[0] })
     })

@@ -1,5 +1,6 @@
-var folderName = $('#folder-name')
+var folderName = $('#folder-name');
 
+//form for creating folders
 $('#create-folder').on('click', function(e) {
   e.preventDefault();
   createNewFolder();
@@ -7,6 +8,11 @@ $('#create-folder').on('click', function(e) {
 })
 
 const createNewFolder = () => {
+  printFolderToPage();
+  postFolder();
+}
+
+const printFolderToPage = () => {
   $('.folders-list').append(
     '<div class="card">' +
       '<h3 class="name">' + folderName.val() + '</h3>' +
@@ -14,13 +20,37 @@ const createNewFolder = () => {
   )
 }
 
-// const deleteFolder = () => {
-//   $('.folder-details').on('click', '.delete', function() {
+//fetch folders from database
+const fetchFolders = () => {
+  fetch('/api/v1/folders')
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+    })
+    .catch(error => console.log('Error fetching folders: ', error))
+}
+
+// const folderParameter = () => {
+//   const folder = $('#folder-name').val()
 //
-//     $('.folder-details').remove();
-//     // $(this).closest().remove('.card');
-//   })
+//   return ( {name: folder} )
 // }
+
+//post a folder to database
+const postFolder = () => {
+  const folder = $('#folder-name').val()
+
+  fetch('/api/v1/folders', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({name: folder}),
+  })
+  .then(res => res.json())
+  .then( data => console.log(data))
+  .catch(error => console.log('Error posting folder: ', error))
+}
+
+
 
 $('.folders-list').on('click', '.card', function() {
 
