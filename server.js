@@ -1,10 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const fs = require('fs');
 
 //we specify the port to be used, in the line below:
 app.set('port', process.env.PORT || 3000)
 app.locals.title = 'Jet Fuel'
+
+//we tell express to use our static files:
+app.use(express.static('public'))
 
 //bodyParser gives an ability to parse the body of an HTTP request
 app.use(bodyParser.json())
@@ -14,7 +18,13 @@ app.locals.folders = {
   wowow: 'folder'
 }
 
+//connecting static files (in the public folder) to the server
+app.get('/', (request, response) => {
+  //__dirname is a global variable that provides the directory name of the current module (the path)
+  response.sendFile(__dirname + '/index.html')
+})
 
+//creating a get request for the home page
 app.get('/', (request, response) => {
   response.send('Server working!')
 })
