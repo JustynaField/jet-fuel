@@ -1,105 +1,135 @@
 const express = require('express');
+const app = express();
 const bodyParser = require('body-parser');
 
+//DATABASE CONFIGURATION:
+//specifying that we are working in development environment
 const environment = process.env.NODE_ENV || 'development';
-const configuration = require('../knexfile')[environment];
+//connecting to knexfile and its development object
+const configuration = require('./knexfile')[environment];
+//requiring knex, passing configuration into knex
 const database = require('knex')(configuration);
 
-const app = express();
-const fs = require('fs');
+
+// const fs = require('fs');
 
 //we specify the port to be used, in the line below:
-app.set('port', process.env.PORT || 3000)
+app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Jet Fuel'
 
 //connecting static files (in the public folder) to the server
 app.use(express.static('public'))
 
 //bodyParser gives an ability to parse the body of an HTTP request
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 //for url encoded bodies:
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //storing folders:
 app.locals.folders = {};
-
 //storing links:
 app.locals.links = {};
 
-//creating a GET request for the HOME PAGE (index.html):
+
+//ENDPOINTS:
+//GET request for the HOME PAGE (index.html):
 app.get('/', (request, response) => {
   //__dirname is a global variable that provides the directory name of the current module (the path)
   response.sendFile(__dirname + '/index.html')
 })
 
-
-//creating a GET request for the LIST OF FOLDERS:
-app.get('/api/folders', (request, response) => {
-  const folders = app.locals.folders
-
-  //this is a shorthand for setting the response type as application/json
-  //server stringifies the response for us
-  response.json({ folders })
+//GET request for the LIST OF FOLDERS:
+app.get('/api/v1/folders', (request, response) => {
+  database('folders').select()
+    .then(folders => {
+      response.status(200).json(folders);
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
 })
 
+//defining POST route for posting ONE FOLDER:
+app.post('/api/v1/folders', (request, response) => {
+  const newFolder = request.body;
 
-//specifying a GET request for a SPECIFIC FOLDER:
-app.get('/api/folders/:id', (request, response) => {
-  const { id } = request.params;
-  const message = app.locals.folders[id];
+  for(let requiredParameter of ['name']) {
+    if (!newFolder[requiredParameter]) {
+      return response.status(422).json({
+        error: `Missing required parameter ${requiredParameter}`
+      });
+    }
+  }
 
-  if(!message) { response.status(404).send('Folder not found')}
+  database('folders').insert(newFolder, 'id')
+    .then(folder => {
+      response.status(201).json({ id: folder[0] })
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
+});
 
-  response.json({ id, message })
-})
+//GET request for a SPECIFIC FOLDER:
+app.get('/api/v1/folders/:id', (request, response) => {
+  database('folders').where('id', request.params.id).select()
+    .then(folders => {
+      if (folders.length) {
+        reponse.status(200).json(folders);
+      } else {
+        response.status(404).json({
+          error: `Could not find folder with id of ${request.params.id}`
+        })
+      }
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    });
+});
 
-//************************************************************
 //GET request for all LINKS:
-app.get('/api/links', (request, response) => {
-  const links = app.locals.links
-
-  if(!links) { response.status(404).send('Links not found')}
-
-  response.json({ links })
+app.get('/api/v1/links', (request, response) => {
+  database('links').select()
+    .then(links => {
+      response.status(200).json(links);
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
 })
+
+// ***********************************************************
+//POST a LINK to a SPECIFIC FOLDER
+app.post('/api/v1/folders/:id/links/:id', (request, response) => {
+  const newLink = request.body;
+
+  for(let requiredParameter of ['url']) {
+    if (!newLink[requiredParameter]) {
+      return response.status(422).json({
+        error: `Missing required parameter ${requiredParameter}`
+      });
+    }
+  }
+
+  database('links').where('folder_id', request.params.id).insert(newLink, 'id')
+    .then(link => {
+      response.status(201).json({ id: link[0] })
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
+})
+//*******************************************************
 
 //GET: requesting all LINKS OF A SPECIFIC FOLDER:
-app.get('/api/folders/:id/links', (request, response) => {
-
-  //?????????????????????
-})
-
-//GET: shortened URLs
-app.get('/api/urls', (request, response) => {
-  const shorturls = app.locals.urls
-  response.json({ shorturls })
-})
-
-//POSTing LINKS
-app.post('/api/links', (request, response) => {
-  const id = Date.now()
-  const { link } = request.body
-
-  app.locals.links[id] = link;
-  response.status(201).json({ id, link })
-})
-
-//*************************************************************
-
-
-//creating a defined POST route for POSTING A FOLDER:
-app.post('/api/folders', (request, response) => {
-  //generating a random ID:
-  const id = Date.now()
-  const { folder } = request.body
-
-  //error handling: if there is no folder included in the body, the server will respond with 422 error code (unprocessable entity), and send a notice to include folder
-  if (!folder) { return response.status(422), send('Must include folder in the body')}
-
-  app.locals.folders[id] = folder;
-
-  //the response will come with 201 (fulfilled request) code and will post a new folder in json format
-  response.status(201).json({ id, folder })
+app.get('/api/v1/folders/:id/links', (request, response) => {
+  database('links').where('folder_id', request.params.id).select()
+    .then(links => {
+      response.status(200).json(links);
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    })
 })
 
 
