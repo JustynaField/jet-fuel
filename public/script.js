@@ -1,9 +1,8 @@
-var folderName = $('#folder-name');
+const folderName = $('#folder-name');
 
 $(document).ready(function() {
   fetchFolders();
 })
-
 
 //form for creating folders
 $('#create-folder').on('click', function(e) {
@@ -13,13 +12,25 @@ $('#create-folder').on('click', function(e) {
   $('#folder-name').val('');
 })
 
-
 const printFolderToPage = () => {
   $('.folders-list').append(
-    '<div class="card">' +
-      '<h3 class="name">' + folderName.val() + '</h3>' +
-    '</div>'
+      '<div class="card">' +
+        '<h3 class="name">' + folder.name + '</h3>' +
+        '<div class="folder-details"></div>' +
+      '</div>'
   )
+}
+
+//printing all folders to page:
+const printAllFolders = (folders) => {
+  folders.map(folder => {
+    $('.folders-list').append(
+      '<div class="card">' +
+        '<h3 class="name">' + folder.name + '</h3>' +
+        '<div class="folder-details"></div>' +
+      '</div>'
+    )
+  })
 }
 
 //fetch folders from database
@@ -32,24 +43,6 @@ const fetchFolders = () => {
     })
     .catch(error => console.log('Error fetching folders: ', error))
 }
-
-
-//printing all folders to page:
-const printAllFolders = (folders) => {
-  folders.map(folder => {
-    $('.folders-list').append(
-      '<div class="card">' +
-        '<h3 class="name">' + folder.name + '</h3>' +
-      '</div>'
-    )
-  })
-}
-
-// const folderParameter = () => {
-//   const folder = $('#folder-name').val()
-//
-//   return ( {name: folder} )
-// }
 
 //post a folder to database
 const postFolder = () => {
@@ -65,40 +58,26 @@ const postFolder = () => {
   .catch(error => console.log('Error posting folder: ', error))
 }
 
+const folderDetails ='<form>' +
+'<input type="text" placeholder="enter URL here"/>' +
+'<button>Submit</button>' +
+'<div class="saved-links">Saved Links:</div>' +
+'</form>'
 
+//toggling folders in folders-list area
+$('.folders-list').on('click', '.card', function(e) {
 
-$('.folders-list').on('click', '.card', function() {
+  const element = $(this)
 
-  // const folderId = $(this).closest('.name').attr('id')
-  // const card = $(this);
-
-  listFolderDetails();
-  $(this).addClass('selected');
-  $(this).siblings().removeClass('selected');
+  if(!element.hasClass('selected')){
+    $(this).children('.folder-details').append(folderDetails)
+    element.addClass('selected')
+  } else {
+    element.removeClass('selected')
+    $(this).children('.folder-details').empty()
+  }
 })
 
 
-// const showOneFolder = (selected) {
-//   $('.folders-list').each(function(index) {
-//     if ($(this).attr)
-//   })
-// }
 
-// const clearFolders = () => {
-//   $('.folders-list').empty()
-// }
-
-const listFolderDetails = (folderId) => {
-  $('.folder-details').empty();
-
-  // const folderName = $(target).closest('.card').find('h3')
-  $('.folder-details').append(
-      '<div>' +
-        // '<p>'+ folderName +'</p>' +
-        '<p>'+ folderId +'</p>' +
-        '<input type="text" placeholder="enter URL here"/>' +
-        '<button>Submit</button>' +
-        '<div class="saved-links">Saved Links:</div>' +
-      '</div>'
-  );
-}
+//jc
