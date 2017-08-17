@@ -12,17 +12,18 @@
       <p class='intro'>An app that shortens your URL and stores it in a thematic folder</p>
     <header>
     <main>
-      <div class='form'>
-        <h2>Shorten your URL:</h2>
-        <input type='text'placeholder="Enter URL here" id='url-input'/>
-        <button id='shorten-link'>submit</button>
+      <div class='shorten-url'>
+        <form>
+          <h2>Enter URL:</h2>
+          <input type='text'placeholder="Enter URL here" id='url-input'/>
+          <div>
+            <h2>Select a folder:</h2>
+            <input id="select-folder" type='text'/>
+          </div>
+          <button id='shorten-link'>Shorten URL</button>
+        </form>
       </div>
 
-
-      <!-- <div>
-        <h2>Select a folder</h2>
-        <input type='text'/>
-      </div> -->
       <form class='form'>
         <h2 class='create'>Create a folder</h2>
         <input type='text' placeholder="Folder Name" id='folder-name'/>
@@ -30,7 +31,7 @@
       </form>
 
       <div class='existing-folders'>
-        <h2>Choose an existing folder:</h2>
+        <h2>View shortened URLs in the folders below:</h2>
       </div>
 
       <div class='folders-list'></div>

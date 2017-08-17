@@ -38,6 +38,10 @@ button {
   color: #1b2b3a;
 }
 
+.shorten-url {
+  margin-bottom: 40px;
+}
+
 .form {
   height: 36px;
   display: flex;
@@ -50,19 +54,26 @@ button {
   margin-right: 1%;
 }
 
+ #shorten-link {
+   margin: 15px;
+ }
+
 #create-folder, #shorten-link {
-  width: 15%;
   font-size: 17px;
   height: 37.5px;
   border: none;
   background-color: #1a91a1;
 }
 
+#create-folder {
+  width: 15%;
+}
+
 #create-folder:focus {
   outline: none;
 }
 
-#create-folder:hover {
+#create-folder:hover, #shorten-link:hover {
   background-color: #edc350;
 }
 
@@ -79,19 +90,25 @@ h2 {
   margin-right: 1%;
 }
 
-#url-input {
+#url-input, #select-folder {
+  height: 32px;
+    margin: 10px;
+}
+
+
+#folder-name, #url-input, #select-folder {
+
   padding-left: 20px;
   font-size: 17px;
 }
 
 #folder-name {
+  height: 30px;
   width: 50%;
-  padding-left: 20px;
-  font-size: 17px;
   margin-right: 1%;
 }
 
-#folder-name:focus {
+#folder-name:focus, #url-input:focus, #select-folder:focus {
   outline: 4px solid #edc350;
 }
 
@@ -134,14 +151,3 @@ h2 {
 .selected {
   background-color: #edc350;
 }
-
-/*.delete {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin-top: 7px;
-  margin-right: 7px;
-  color: #1b2b3a;
-  font-size: 18px;
-  opacity: .5;
-}*/
