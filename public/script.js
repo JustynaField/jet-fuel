@@ -1,4 +1,4 @@
-const folderName = $('#folder-name');
+// const folderName = $('#folder-name');
 
 $(document).ready(function() {
   fetchFolders();
@@ -58,13 +58,15 @@ const postFolder = () => {
   .catch(error => console.log('Error posting folder: ', error))
 }
 
-const folderDetails ='<form>' +
-'<input type="text" placeholder="enter URL here"/>' +
-'<button>Submit</button>' +
-'<div class="saved-links">Saved Links:</div>' +
-'</form>'
-
 //toggling folders in folders-list area
+const folderDetails =
+'<div>' +
+  '<div class="saved-links">' +
+    '<h4>Saved Links:</h4>' +
+    '<div class="links"></div>'
+  '</div>' +
+'</div>'
+
 $('.folders-list').on('click', '.card', function(e) {
 
   const element = $(this)
@@ -79,5 +81,4 @@ $('.folders-list').on('click', '.card', function(e) {
 })
 
 
-
-//jc
+//LINKS

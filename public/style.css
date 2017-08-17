@@ -47,9 +47,12 @@ button {
 
 #url-input {
   width: 72%;
+  margin-right: 1%;
 }
 
-#create-folder{
+#create-folder, #shorten-link {
+  width: 15%;
+  font-size: 17px;
   height: 37.5px;
   border: none;
   background-color: #1a91a1;
@@ -76,6 +79,11 @@ h2 {
   margin-right: 1%;
 }
 
+#url-input {
+  padding-left: 20px;
+  font-size: 17px;
+}
+
 #folder-name {
   width: 50%;
   padding-left: 20px;
@@ -85,11 +93,6 @@ h2 {
 
 #folder-name:focus {
   outline: 4px solid #edc350;
-}
-
-#create-folder {
-  width: 15%;
-  font-size: 17px;
 }
 
 .existing-folders {
