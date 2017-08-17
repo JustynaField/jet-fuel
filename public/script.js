@@ -26,10 +26,10 @@ const printAllFolders = (folders) => {
 
   folders.map(folder => {
     $('.folders-list').append(
-      '<div class="card">' +
-        '<h3 class="name">' + folder.name + '</h3>' +
-        '<div class="folder-details"></div>' +
-      '</div>'
+      `<div value="${folder.id}" class="card">
+        <h3 class="name">${folder.name}</h3>
+        <div class="folder-details"></div>
+      </div>`
     )
     $('#select-folder').append(
         `<option value="${folder.id}"> ${folder.name} </option>`
@@ -96,9 +96,6 @@ $('#shorten-link').on('click', function(e) {
   const selectedFolder = $('#select-folder').val()
 
   $('.shortened').append('<p>' + url.val() + '</p>')
-
-
-  $('.folders-list').
 
 
   postLink();
