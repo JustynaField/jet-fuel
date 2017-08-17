@@ -4,12 +4,14 @@ const bodyParser = require('body-parser');
 
 //DATABASE CONFIGURATION:
 //specifying that we are working in development environment
+//process.env.NODE_ENV allows us to work in different environments
+//process is an object, gives us information about...
+// it knows it's in a production environment because of the fallback
 const environment = process.env.NODE_ENV || 'development';
 //connecting to knexfile and its development object
 const configuration = require('./knexfile')[environment];
 //requiring knex, passing configuration into knex
 const database = require('knex')(configuration);
-
 
 // const fs = require('fs');
 
@@ -25,11 +27,13 @@ app.use(bodyParser.json());
 //for url encoded bodies:
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
 //storing folders:
 app.locals.folders = {};
 //storing links:
 app.locals.links = {};
 
+process.env.FOO = 'bar';
 
 //ENDPOINTS:
 //GET request for the HOME PAGE (index.html):
@@ -98,9 +102,10 @@ app.get('/api/v1/links', (request, response) => {
     })
 })
 
-//POST a LINK to a SPECIFIC FOLDER
-app.post('/api/v1/folders/:id/links', (request, response) => {
+//POST a LINK
+app.post('/api/v1/links', (request, response) => {
   const newLink = request.body;
+  console.log('newLink:', newLink)
 
   for(let requiredParameter of ['url']) {
     if (!newLink[requiredParameter]) {
@@ -110,14 +115,17 @@ app.post('/api/v1/folders/:id/links', (request, response) => {
     }
   }
 
-  database('links').where('folder_id', request.params.id).insert(newLink, 'id')
+  database('links').insert(newLink, ['id', 'url', 'folder_id'])
     .then(link => {
+
       response.status(201).json({ id: link[0] })
     })
     .catch(error => {
       response.status(500).json({ error })
     })
 })
+
+
 
 //GET: requesting all LINKS OF A SPECIFIC FOLDER:
 app.get('/api/v1/folders/:id/links', (request, response) => {

@@ -55,7 +55,7 @@ button {
 }
 
  #shorten-link {
-   width: 140px;
+   min-width: 140px;
    /*height: 40px;*/
    margin: 15px;
  }
@@ -150,3 +150,21 @@ h2 {
 .selected {
   background-color: #edc350;
 }
+
+/*LINKS*/
+/*animation*/
+
+/*#toggle {
+  display: none;
+  visibility: hidden;
+}
+
+#expand {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.5s;
+}
+
+#toggle:checked ~ #expand {
+  height: 250px;
+}*/

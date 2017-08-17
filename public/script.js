@@ -1,7 +1,6 @@
-// const folderName = $('#folder-name');
-
 $(document).ready(function() {
   fetchFolders();
+  fetchLinks();
 })
 
 //form for creating folders
@@ -23,12 +22,16 @@ const printFolderToPage = () => {
 
 //printing all folders to page:
 const printAllFolders = (folders) => {
+
   folders.map(folder => {
     $('.folders-list').append(
       '<div class="card">' +
         '<h3 class="name">' + folder.name + '</h3>' +
         '<div class="folder-details"></div>' +
       '</div>'
+    )
+    $('#select-folder').append(
+        `<option value="${folder.id}"> ${folder.name} </option>`
     )
   })
 }
@@ -39,7 +42,8 @@ const fetchFolders = () => {
     .then(res => res.json())
     .then(data => {
       console.log(data)
-      printAllFolders(data)
+      printAllFolders(data);
+      // printOptions(data)
     })
     .catch(error => console.log('Error fetching folders: ', error))
 }
@@ -67,7 +71,8 @@ const folderDetails =
   '</div>' +
 '</div>'
 
-$('.folders-list').on('click', '.card', function(e) {
+//expanding folder with information
+$('.folders-list').on('click', '.card', function() {
 
   const element = $(this)
 
@@ -80,5 +85,50 @@ $('.folders-list').on('click', '.card', function(e) {
   }
 })
 
-
 //LINKS
+$('#shorten-link').on('click', function(e) {
+  e.preventDefault();
+
+  const url = $('#url-input')
+  const selectedFolder = $('#select-folder').val()
+
+  $('.shortened').append('<p>' + url.val() + '</p>')
+  postLink();
+  url.val('')
+})
+
+//post link to database
+const postLink = () => {
+  const linkval = $('#url-input').val();
+  const folderId = $('#select-folder').val()
+
+  fetch('/api/v1/links', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({url: linkval, folder_id: folderId})
+    })
+  .then(res => res.json())
+  .then( data => console.log('data in fetch:',data))
+  .catch(error => console.log('Error posting link: ', error))
+}
+
+//fetch links from database
+const fetchLinks = () => {
+  fetch('/api/v1/links')
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      // printLinksInFolder(data)
+    })
+    .catch(error => console.log('Error fetching links: ', error))
+}
+
+//printLinksToFolder
+// const printLinksInFolder = (links) => {
+//  $('.links').
+// }
+
+
+
+
+//
