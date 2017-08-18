@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 //process.env.NODE_ENV allows us to work in different environments
 //process is an object, gives us information about...
 // it knows it's in a production environment because of the fallback
+//we want it to be detected automatically so that it can vary based on where our application is running:
 const environment = process.env.NODE_ENV || 'development';
 //connecting to knexfile and its development object
 const configuration = require('./knexfile')[environment];
@@ -143,3 +144,5 @@ app.get('/api/v1/folders/:id/links', (request, response) => {
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`)
 })
+
+module.exports = app;

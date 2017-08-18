@@ -45,7 +45,6 @@ const fetchFolders = () => {
       console.log(data)
       printAllFolders(data);
       // printFolderToPage(data)
-      // printOptions(data)
     })
     .catch(error => console.log('Error fetching folders: ', error))
 }
@@ -68,14 +67,13 @@ const postFolder = () => {
 const folderDetails =
 '<div>' +
   '<div class="saved-links">' +
-    '<h4>Saved Links:</h4>' +
+    '<h4 class="link-list">Saved Links:</h4>' +
     '<div class="links"></div>'
   '</div>' +
 '</div>'
 
 //expanding folder with information
 $('.folders-list').on('click', '.card', function() {
-
   const element = $(this)
 
   if(!element.hasClass('selected')){
@@ -91,12 +89,11 @@ $('.folders-list').on('click', '.card', function() {
 //LINKS
 $('#shorten-link').on('click', function(e) {
   e.preventDefault();
-
+console.log('e:', e)
   const url = $('#url-input')
   const selectedFolder = $('#select-folder').val()
 
   $('.shortened').append('<p>' + url.val() + '</p>')
-
 
   postLink();
   url.val('')
@@ -115,11 +112,22 @@ const postLink = () => {
   .then(res => res.json())
   .then( data => {
     console.log('link being posted:',data)
-
+    // postLinkToFolder(data)
+    console.log('consoled:', $('.folders-list').children('.card').attr('value'))
+    // $('.folders-list').children('.card').prop('value').append('<p>' + link + '</p>')
   })
   .catch(error => console.log('Error posting link: ', error))
 }
 
+
+// $('.folders-list').append(
+//   `<div value="${folder.id}" class="card">
+
+
+
+// const postLinkToFolder = (link) => {
+//   $('.card value=').append('<p>' + link + '</p>')
+// }
 
 
 //fetch links from database
