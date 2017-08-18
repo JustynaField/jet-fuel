@@ -116,7 +116,7 @@ app.post('/api/v1/links', (request, response) => {
     }
   }
 
-  database('links').insert(newLink, ['id', 'url', 'folder_id'])
+  database('links').insert(newLink, '*')
     .then(link => {
 
       response.status(201).json({ id: link[0] })

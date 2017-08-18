@@ -93,11 +93,15 @@ console.log('e:', e)
   const url = $('#url-input')
   const selectedFolder = $('#select-folder').val()
 
-  $('.shortened').append('<p>' + url.val() + '</p>')
 
   postLink();
   url.val('')
 })
+
+const printLinkToPage = (link) => {
+  $('.shortened').append('<p>' + link.id.url + '</p>')
+}
+
 
 //post link to database
 const postLink = () => {
@@ -111,9 +115,12 @@ const postLink = () => {
     })
   .then(res => res.json())
   .then( data => {
+    console.log('data in POST:', data)
+    printLinkToPage(data);
+
     console.log('link being posted:',data)
     // postLinkToFolder(data)
-    console.log('consoled:', $('.folders-list').children('.card').attr('value'))
+    // console.log('consoled:', $('.folders-list').children('.card').attr('value'))
     // $('.folders-list').children('.card').prop('value').append('<p>' + link + '</p>')
   })
   .catch(error => console.log('Error posting link: ', error))
