@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const shortHash = require('short-hash');
 
 //DATABASE CONFIGURATION:
 //specifying that we are working in development environment
@@ -105,7 +106,10 @@ app.get('/api/v1/links', (request, response) => {
 
 //POST a LINK
 app.post('/api/v1/links', (request, response) => {
-  const newLink = request.body;
+  const newLink = {
+    url: `www.justyna-jet-fuel.herokuapp.com/${shortHash(request.body.url)}`,
+    folder_id: request.body.folder_id
+  }
   console.log('newLink:', newLink)
 
   for(let requiredParameter of ['url']) {

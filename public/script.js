@@ -85,23 +85,19 @@ $('.folders-list').on('click', '.card', function() {
   }
 })
 
-
 //LINKS
 $('#shorten-link').on('click', function(e) {
   e.preventDefault();
-console.log('e:', e)
   const url = $('#url-input')
   const selectedFolder = $('#select-folder').val()
-
 
   postLink();
   url.val('')
 })
 
 const printLinkToPage = (link) => {
-  $('.shortened').append('<p>' + link.id.url + '</p>')
+  $('.shortened').append(`<a class="shortened-url" href=${link.id.url} target='_blank'>${link.id.url}</a> <p><span>created: </span> ${link.id.created_at}</p>`)
 }
-
 
 //post link to database
 const postLink = () => {

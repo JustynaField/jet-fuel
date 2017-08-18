@@ -157,6 +157,11 @@ h2 {
 
 /*LINKS*/
 
+
+.shortened-url {
+  font-size: 24px;
+}
+
 .link-list {
   padding-left: 20px;
 }
