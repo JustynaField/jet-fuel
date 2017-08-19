@@ -1,7 +1,6 @@
 $(document).ready(function() {
   fetchFolders();
   fetchLinks();
-  fetchFolderWithLinks();
 })
 
 //form for creating folders
@@ -53,8 +52,21 @@ const dropDown = (folders) => {
   }
 }
 
+const linkDetails = (link) => {
+    $('.links').append(`<a href=${link.url} target='_blank'>${link.url}</a> <p><span>created: </span> ${link.created_at}</p>`)
+}
+
 const printLinksToFolder = (links) => {
-  $('.links').append(`<p>${links}</p>`)
+
+  $('.links').empty();
+  for(let i = 0; i<links.length; i++){
+    // console.log(folders[i])
+linkDetails(links[i])
+  // links.map(link => {
+
+    // console.log(links[i].url)
+  }
+  // $('.links').append(`<p>${links}</p>`)
 }
 
 //fetch specific folder with details
@@ -62,7 +74,7 @@ const fetchFolderWithLinks = (id) => {
   fetch('/api/v1/folders')
   .then(res => res.json())
   .then(folders => {
-    console.log(folders)
+    // console.log(folders)
     fetch(`/api/v1/folders/${id}/links`)
     .then(res => res.json())
      .then(id => {
@@ -74,12 +86,9 @@ const fetchFolderWithLinks = (id) => {
 }
 
 $('.folders-list').on('click', '.card', function(e) {
-  // console.log(e.currentTarget.attributes.value.nodeValue)
-
   const id = e.currentTarget.attributes.value.nodeValue;
-  console.log(id)
+  // console.log(id)
   fetchFolderWithLinks(id);
-
 })
 
 //fetch folders from database
