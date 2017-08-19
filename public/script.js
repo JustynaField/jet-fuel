@@ -3,12 +3,18 @@ $(document).ready(function() {
   fetchLinks();
 })
 
+//create
+// $('#url-input').keydown( function() => {
+//   $('.shortened').empty();
+// })
+
 //form for creating folders
 $('#create-folder').on('click', function(e) {
   e.preventDefault();
   const foldername = $('#folder-name').val()
-  printFolderToPage(foldername);
-  postFolder();
+  // printFolderToPage(foldername);
+  postFolder(foldername);
+  fetchFolders();
   $('#folder-name').val('');
 })
 
@@ -21,21 +27,36 @@ const printFolderToPage = (folder) => {
   )
 }
 
+const printFolder = (folder) => {
+  $('.folders-list').append(
+  `<div value="${folder.id}" class="card">
+    <h3 class="name">${folder.name}</h3>
+    <div class="folder-details"></div>
+  </div>`)
+}
+
 //printing all folders to page:
 const printAllFolders = (folders) => {
-
-  folders.map(folder => {
-    $('.folders-list').append(
-      `<div value="${folder.id}" class="card">
-        <h3 class="name">${folder.name}</h3>
-        <div class="folder-details"></div>
-      </div>`
-    )
-    $('#select-folder').append(
-        `<option value="${folder.id}"> ${folder.name} </option>`
-    )
-  })
+  $('.folders-list').empty();
+  for(let i = 0; i<folders.length; i++){
+    printFolder(folders[i]);
+  }
 }
+
+const folderOptions = (folder) => {
+  $('#select-folder').append(
+    `<option value="${folder.id}"> ${folder.name} </option>`
+  )
+}
+
+const dropDown = (folders) => {
+  console.log('folders in dropdonw', folders)
+  $('#select-folder').empty();
+  for(let i = 0; i<folders.length; i++){
+    folderOptions(folders[i]);
+  }
+}
+
 
 //fetch folders from database
 const fetchFolders = () => {
@@ -43,23 +64,25 @@ const fetchFolders = () => {
     .then(res => res.json())
     .then(data => {
       console.log(data)
-      printAllFolders(data);
-      // printFolderToPage(data)
+      printAllFolders(data.folders);
+      dropDown(data.folders)
     })
     .catch(error => console.log('Error fetching folders: ', error))
 }
 
 //post a folder to database
-const postFolder = () => {
-  const folder = $('#folder-name').val()
+const postFolder = (folderName) => {
+  // const folder = $('#folder-name').val()
 
   fetch('/api/v1/folders', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({name: folder}),
+    body: JSON.stringify({name: folderName}),
   })
   .then(res => res.json())
-  .then( data => console.log('posting folder:', data))
+  .then( data => {
+    fetchFolders(data.folders)
+  })
   .catch(error => console.log('Error posting folder: ', error))
 }
 
@@ -96,7 +119,8 @@ $('#shorten-link').on('click', function(e) {
 })
 
 const printLinkToPage = (link) => {
-  $('.shortened').append(`<a class="shortened-url" href=${link.id.url} target='_blank'>${link.id.url}</a> <p><span>created: </span> ${link.id.created_at}</p>`)
+  console.log(link)
+  $('.shortened').replaceWith(`<a class="shortened-url" href=${link.id.url} target='_blank'>${link.id.url}</a> <p><span>created: </span> ${link.id.created_at}</p>`)
 }
 
 //post link to database
@@ -115,22 +139,11 @@ const postLink = () => {
     printLinkToPage(data);
 
     console.log('link being posted:',data)
-    // postLinkToFolder(data)
-    // console.log('consoled:', $('.folders-list').children('.card').attr('value'))
-    // $('.folders-list').children('.card').prop('value').append('<p>' + link + '</p>')
+
   })
   .catch(error => console.log('Error posting link: ', error))
 }
 
-
-// $('.folders-list').append(
-//   `<div value="${folder.id}" class="card">
-
-
-
-// const postLinkToFolder = (link) => {
-//   $('.card value=').append('<p>' + link + '</p>')
-// }
 
 
 //fetch links from database
@@ -143,28 +156,3 @@ const fetchLinks = () => {
     })
     .catch(error => console.log('Error fetching links: ', error))
 }
-
-//printLinksToFolder
-// const printLinksInFolder = (links) => {
-//   links.map(link => {
-//
-//   $('.folders-list').on('click', '.card', function() {
-//     const folderId =
-//
-//   }
-//     console.log('link in folder:', link.url)
-//     console.log('folderid in folder:', link.url)
-//     if()
-
-    //if folder id === folder id from link object
-    //[....].append('<p>' + link.url + '</p>')
-  // })
-  // $('.folders-list').on('click', '.card', function() {
-
-
-// }
-// folders.map(folder =>
-
-
-
-//

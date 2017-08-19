@@ -35,7 +35,7 @@ app.locals.folders = {};
 //storing links:
 app.locals.links = {};
 
-process.env.FOO = 'bar';
+// process.env.FOO = 'bar';
 
 //ENDPOINTS:
 //GET request for the HOME PAGE (index.html):
@@ -48,7 +48,7 @@ app.get('/', (request, response) => {
 app.get('/api/v1/folders', (request, response) => {
   database('folders').select()
     .then(folders => {
-      response.status(200).json(folders);
+      response.status(200).json({folders});
     })
     .catch(error => {
       response.status(500).json({ error })

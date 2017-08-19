@@ -10,7 +10,8 @@ exports.up = function(knex, Promise) {
 
     knex.schema.createTable('links', function(table) {
       table.increments('id').primary();
-      table.string('url');
+      table.string('url')
+      table.string('short_url')
       table.integer('folder_id').unsigned()
       table.foreign('folder_id')
         .references('folders.id');
@@ -22,7 +23,7 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   return Promise.all([
-      knex.schema.dropTable('folders'),
-      knex.schema.dropTable('links')
+      knex.schema.dropTable('links'),
+      knex.schema.dropTable('folders')
     ]);
 };

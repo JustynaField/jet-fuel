@@ -157,27 +157,10 @@ h2 {
 
 /*LINKS*/
 
-
 .shortened-url {
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .link-list {
   padding-left: 20px;
 }
-/*animation*/
-
-/*#toggle {
-  display: none;
-  visibility: hidden;
-}
-
-#expand {
-  height: 0px;
-  overflow: hidden;
-  transition: height 0.5s;
-}
-
-#toggle:checked ~ #expand {
-  height: 250px;
-}*/
