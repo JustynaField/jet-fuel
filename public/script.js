@@ -1,6 +1,7 @@
 $(document).ready(function() {
   fetchFolders();
   fetchLinks();
+  fetchFolderWithLinks();
 })
 
 //form for creating folders
@@ -34,6 +35,7 @@ const printFolder = (folder) => {
 const printAllFolders = (folders) => {
   $('.folders-list').empty();
   for(let i = 0; i<folders.length; i++){
+    // console.log(folders[i])
     printFolder(folders[i]);
   }
 }
@@ -51,6 +53,34 @@ const dropDown = (folders) => {
   }
 }
 
+const printLinksToFolder = (links) => {
+  $('.links').append(`<p>${links}</p>`)
+}
+
+//fetch specific folder with details
+const fetchFolderWithLinks = (id) => {
+  fetch('/api/v1/folders')
+  .then(res => res.json())
+  .then(folders => {
+    console.log(folders)
+    fetch(`/api/v1/folders/${id}/links`)
+    .then(res => res.json())
+     .then(id => {
+       printLinksToFolder(id)
+     })
+  })
+  //
+  // })
+}
+
+$('.folders-list').on('click', '.card', function(e) {
+  // console.log(e.currentTarget.attributes.value.nodeValue)
+
+  const id = e.currentTarget.attributes.value.nodeValue;
+  console.log(id)
+  fetchFolderWithLinks(id);
+
+})
 
 //fetch folders from database
 const fetchFolders = () => {
@@ -74,7 +104,7 @@ const postFolder = (folderName) => {
   })
   .then(res => res.json())
   .then( data => {
-    fetchFolders(data.folders)
+    fetchFolders(data.folder)
   })
   .catch(error => console.log('Error posting folder: ', error))
 }
@@ -137,7 +167,6 @@ const postLink = () => {
   })
   .catch(error => console.log('Error posting link: ', error))
 }
-
 
 //fetch links from database
 const fetchLinks = () => {
