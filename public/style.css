@@ -56,8 +56,11 @@ button {
 
  #shorten-link {
    min-width: 140px;
-   /*height: 40px;*/
    margin: 15px;
+ }
+
+ #shorten-link:focus {
+   outline: none;
  }
 
 #create-folder, #shorten-link {

@@ -3,11 +3,6 @@ $(document).ready(function() {
   fetchLinks();
 })
 
-//create
-// $('#url-input').keydown( function() => {
-//   $('.shortened').empty();
-// })
-
 //form for creating folders
 $('#create-folder').on('click', function(e) {
   e.preventDefault();
@@ -50,7 +45,6 @@ const folderOptions = (folder) => {
 }
 
 const dropDown = (folders) => {
-  console.log('folders in dropdonw', folders)
   $('#select-folder').empty();
   for(let i = 0; i<folders.length; i++){
     folderOptions(folders[i]);
@@ -63,7 +57,6 @@ const fetchFolders = () => {
   fetch('/api/v1/folders')
     .then(res => res.json())
     .then(data => {
-      console.log(data)
       printAllFolders(data.folders);
       dropDown(data.folders)
     })
@@ -120,7 +113,8 @@ $('#shorten-link').on('click', function(e) {
 
 const printLinkToPage = (link) => {
   console.log(link)
-  $('.shortened').replaceWith(`<a class="shortened-url" href=${link.id.url} target='_blank'>${link.id.url}</a> <p><span>created: </span> ${link.id.created_at}</p>`)
+  $('.shortened').empty();
+  $('.shortened').append(`<a class="shortened-url" href=${link.id.url} target='_blank'>${link.id.url}</a> <p><span>created: </span> ${link.id.created_at}</p>`)
 }
 
 //post link to database
@@ -145,14 +139,12 @@ const postLink = () => {
 }
 
 
-
 //fetch links from database
 const fetchLinks = () => {
   fetch('/api/v1/links')
     .then(res => res.json())
     .then(data => {
-      console.log(data)
-      // printLinksInFolder(data)
+      return data
     })
     .catch(error => console.log('Error fetching links: ', error))
 }
