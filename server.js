@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const shortHash = require('short-hash');
+const validUrl = require('valid-url');
+// const moment = require('moment');
 
 //DATABASE CONFIGURATION:
 //specifying that we are working in development environment
@@ -111,7 +113,12 @@ app.post('/api/v1/links', (request, response) => {
     short_url: shortHash(request.body.url),
     folder_id: request.body.folder_id
   }
-  console.log('newLink:', newLink)
+
+// if (validUrl.isUri(newLink)){
+//       alert('Looks like an URL');
+//   } else {
+//       alert('Not a URL');
+// }
 
   for(let requiredParameter of ['url']) {
     if (!newLink[requiredParameter]) {
@@ -123,7 +130,6 @@ app.post('/api/v1/links', (request, response) => {
 
   database('links').insert(newLink, '*')
     .then(link => {
-
       response.status(201).json({ id: link[0] })
     })
     .catch(error => {

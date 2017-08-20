@@ -21,6 +21,7 @@ const printFolderToPage = (folder) => {
 }
 
 const printFolder = (folder) => {
+      // console.log('folder being posted:', folder)
   $('.folders-list').append(
   `<div value="${folder.id}" class="card">
     <h3 class="name">${folder.name}</h3>
@@ -33,6 +34,7 @@ const printAllFolders = (folders) => {
   $('.folders-list').empty();
   for(let i = 0; i<folders.length; i++){
     printFolder(folders[i]);
+    // console.log('folder being posted: ', folders[i])
   }
 }
 
@@ -49,13 +51,9 @@ const dropDown = (folders) => {
   }
 }
 
-//  <a href=${link.url} target='_blank' class="link">${link.url}</a>
-// <a  href="http://localhost:3000/api/v1/links/${link.id.short_url}" target='_blank'>www.justyna-jet-fuel.herokuapp.com/${link.id.short_url}</a>
-
 const linkDetails = (link) => {
     $('.links').append(`<p class="linkz">
     <a href="http://localhost:3000/api/v1/links/${link.short_url}" target='_blank'>www.justyna-jet-fuel.herokuapp.com/${link.short_url}</a>
-
     <span>created: </span>${link.created_at}</p>`)
 }
 
@@ -73,7 +71,9 @@ const fetchFolderWithLinks = (id) => {
     fetch(`/api/v1/folders/${id}/links`)
     .then(res => res.json())
     .then(id => {
+                console.log('folder with links:', id)
       printLinksToFolder(id)
+      //sortLinksInFolder(id)
     })
   })
 }
@@ -82,6 +82,7 @@ $('.folders-list').on('click', '.card', function(e) {
   const id = e.currentTarget.attributes.value.nodeValue;
   // console.log(id)
   fetchFolderWithLinks(id);
+
 })
 
 //fetch folders from database
@@ -112,12 +113,13 @@ const postFolder = (folderName) => {
 
 //toggling folders in folders-list area
 const folderDetails =
-'<div>' +
-  '<div class="saved-links">' +
-    '<h4 class="link-list">Saved Links:</h4>' +
-    '<div class="links"></div>'
-  '</div>' +
-'</div>'
+`<div>
+  <div class="saved-links">
+    <h4 class="link-list">Saved Links:</h4>
+    <div class="links"></div>
+    <div>Sort by: <button class="most">Most Recent</button><button>Least Recent</button></div>
+  </div>
+</div>`
 
 //expanding folder with information
 $('.folders-list').on('click', '.card', function() {
@@ -131,6 +133,14 @@ $('.folders-list').on('click', '.card', function() {
     $(this).children('.folder-details').empty()
   }
 })
+
+//sorting links
+//access the folder id, sort by ids
+const sortLinksInFolder = (id) => {
+  $('.folders-list').parent().on('click', '.most', function() {
+    console.log(hello)
+  })
+}
 
 //LINKS
 $('#shorten-link').on('click', function(e) {
@@ -160,7 +170,7 @@ const postLink = () => {
   .then(res => res.json())
   .then( data => {
     printLinkToPage(data);
-    console.log('link being posted:',data)
+    console.log('link being posted: ', data)
   })
   .catch(error => console.log('Error posting link: ', error))
 }
