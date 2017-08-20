@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const shortHash = require('short-hash');
-const validUrl = require('valid-url');
 // const moment = require('moment');
 
 //DATABASE CONFIGURATION:

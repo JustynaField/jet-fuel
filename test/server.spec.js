@@ -1,25 +1,15 @@
+process.env.NODE_ENV = 'test';
 const chai = require('chai');
 const should = chai.should();
 const chaiHTTP = require('chai-http');
 const server = require('../server');
-const knex = require ('knex');
-// const folders = require('../seed/dev/folders');
+
+const environment = process.env.NODE_ENV;
+const configuration = require('../knexfile')[environment];
+const database = require('knex')(configuration);
+
 
 chai.use(chaiHTTP);
-
-// beforeEach((done) => {
-//     knex.migrate.rollback()
-//     .then(() => {
-//       knex.migrate.latest()
-//       .then(() => {
-//         knex.seed.run()
-//         .then(() => {
-//           done();
-//       });
-//     });
-//   });
-// });
-
 
 describe('Client Routes', () => {
 
@@ -44,6 +34,20 @@ describe('Client Routes', () => {
 })
 
 describe('API Routes', () => {
+
+  beforeEach((done) => {
+      database.migrate.rollback()
+      .then(() => {
+        database.migrate.latest()
+        .then(() => {
+          database.seed.run()
+          .then(() => {
+            done();
+        });
+      });
+    });
+  });
+
 
   describe('GET /api/v1/folders', () => {
     it('should return all of the folders', (done) => {
