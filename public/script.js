@@ -7,7 +7,6 @@ $(document).ready(function() {
 $('#create-folder').on('click', function(e) {
   e.preventDefault();
   const foldername = $('#folder-name').val()
-  // printFolderToPage(foldername);
   postFolder(foldername);
   fetchFolders();
   $('#folder-name').val('');
@@ -34,7 +33,6 @@ const printFolder = (folder) => {
 const printAllFolders = (folders) => {
   $('.folders-list').empty();
   for(let i = 0; i<folders.length; i++){
-    // console.log(folders[i])
     printFolder(folders[i]);
   }
 }
@@ -53,20 +51,14 @@ const dropDown = (folders) => {
 }
 
 const linkDetails = (link) => {
-    $('.links').append(`<a href=${link.url} target='_blank'>${link.url}</a> <p><span>created: </span> ${link.created_at}</p>`)
+    $('.links').append(`<p class="linkz"><a href=${link.url} target='_blank' class="link">${link.url}</a><span>created: </span> ${link.created_at}</p>`)
 }
 
 const printLinksToFolder = (links) => {
-
   $('.links').empty();
   for(let i = 0; i<links.length; i++){
-    // console.log(folders[i])
-linkDetails(links[i])
-  // links.map(link => {
-
-    // console.log(links[i].url)
+    linkDetails(links[i])
   }
-  // $('.links').append(`<p>${links}</p>`)
 }
 
 //fetch specific folder with details
@@ -74,15 +66,12 @@ const fetchFolderWithLinks = (id) => {
   fetch('/api/v1/folders')
   .then(res => res.json())
   .then(folders => {
-    // console.log(folders)
     fetch(`/api/v1/folders/${id}/links`)
     .then(res => res.json())
-     .then(id => {
-       printLinksToFolder(id)
-     })
+    .then(id => {
+      printLinksToFolder(id)
+    })
   })
-  //
-  // })
 }
 
 $('.folders-list').on('click', '.card', function(e) {
