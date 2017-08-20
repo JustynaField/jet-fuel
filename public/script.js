@@ -49,8 +49,14 @@ const dropDown = (folders) => {
   }
 }
 
+//  <a href=${link.url} target='_blank' class="link">${link.url}</a>
+// <a  href="http://localhost:3000/api/v1/links/${link.id.short_url}" target='_blank'>www.justyna-jet-fuel.herokuapp.com/${link.id.short_url}</a>
+
 const linkDetails = (link) => {
-    $('.links').append(`<p class="linkz"><a href=${link.url} target='_blank' class="link">${link.url}</a><span>created: </span> ${link.created_at}</p>`)
+    $('.links').append(`<p class="linkz">
+    <a href="http://localhost:3000/api/v1/links/${link.short_url}" target='_blank'>www.justyna-jet-fuel.herokuapp.com/${link.short_url}</a>
+
+    <span>created: </span>${link.created_at}</p>`)
 }
 
 const printLinksToFolder = (links) => {
@@ -91,7 +97,6 @@ const fetchFolders = () => {
 
 //post a folder to database
 const postFolder = (folderName) => {
-  // const folder = $('#folder-name').val()
 
   fetch('/api/v1/folders', {
     method: 'POST',
@@ -138,9 +143,8 @@ $('#shorten-link').on('click', function(e) {
 })
 
 const printLinkToPage = (link) => {
-  console.log(link)
   $('.shortened').empty();
-  $('.shortened').append(`<div><h3>Your  link:</h3><a class="shortened-url" href="http://localhost:3000/api/v1/links/${link.id.short_url}" target='_blank'>`${link.id.short_url}`</a></div>`)
+  $('.shortened').append(`<div><h3>Your  link:</h3><a class="shortened-url" href="http://localhost:3000/api/v1/links/${link.id.short_url}" target='_blank'>www.justyna-jet-fuel.herokuapp.com/${link.id.short_url}</a></div>`)
 }
 
 //post link to database

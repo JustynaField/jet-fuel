@@ -83,6 +83,7 @@ button {
 }
 
 .existing-folders {
+  padding-top: 30px;
   text-align: left
 }
 
@@ -170,6 +171,7 @@ h2 {
 
 .linkz {
   padding: 0 15px;
+  overflow: hidden;
 }
 
 .link {
