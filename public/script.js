@@ -55,7 +55,6 @@ const linkDetails = (link) => {
 }
 
 const printLinksToFolder = (links) => {
-  $('.links').empty();
   for(let i = 0; i<links.length; i++){
     linkDetails(links[i])
   }
