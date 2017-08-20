@@ -1,6 +1,5 @@
 $(document).ready(function() {
   fetchFolders();
-  // fetchLinks();
 })
 
 //form for creating folders
@@ -141,7 +140,7 @@ $('#shorten-link').on('click', function(e) {
 const printLinkToPage = (link) => {
   console.log(link)
   $('.shortened').empty();
-  $('.shortened').append(`<a class="shortened-url" href="http://localhost:3000/api/v1/links/${link.id.short_url}" target='_blank'>${link.id.short_url}</a>`)
+  $('.shortened').append(`<div><h3>Your  link:</h3><a class="shortened-url" href="http://localhost:3000/api/v1/links/${link.id.short_url}" target='_blank'>`${link.id.short_url}`</a></div>`)
 }
 
 //post link to database
@@ -161,13 +160,3 @@ const postLink = () => {
   })
   .catch(error => console.log('Error posting link: ', error))
 }
-
-//fetch links from database
-// const redirectLink = (link) => {
-//   fetch(`/api/v1/links/${link}`)
-//     .then(res => res.json())
-//     .then(data => {
-//       return data
-//     })
-//     .catch(error => console.log('Error fetching links: ', error))
-// }
