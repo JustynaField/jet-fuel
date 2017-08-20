@@ -117,9 +117,10 @@ const folderDetails =
   <div class="saved-links">
     <h4 class="link-list">Saved Links:</h4>
     <div class="links"></div>
-    <div>Sort by: <button class="most">Most Recent</button><button>Least Recent</button></div>
   </div>
 </div>`
+
+  // <div class="sort">Sort by: <button class="most">Most Recent</button><button>Least Recent</button></div>
 
 //expanding folder with information
 $('.folders-list').on('click', '.card', function() {
@@ -135,10 +136,9 @@ $('.folders-list').on('click', '.card', function() {
 })
 
 //sorting links
-//access the folder id, sort by ids
 const sortLinksInFolder = (id) => {
   $('.folders-list').parent().on('click', '.most', function() {
-    console.log(hello)
+    // console.log(hello)
   })
 }
 
@@ -170,7 +170,7 @@ const postLink = () => {
   .then(res => res.json())
   .then( data => {
     printLinkToPage(data);
-    console.log('link being posted: ', data)
+    // console.log('link being posted: ', data)
   })
   .catch(error => console.log('Error posting link: ', error))
 }

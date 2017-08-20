@@ -1,26 +1,28 @@
-// [
-//   { url: "http://www.longlink1.com",
-//     id: 21,
-//     short_url: "11111111",
-//     folder_id: folder[11] },
-//   { url: "http://www.longlink2.com",
-//     id: 22,
-//     short_url: "22222222",
-//     folder_id: folder[11] },
-//   { url: "http://www.longlink3.com",
-//     id: 23,
-//     short_url: "33333333",
-//     folder_id: folder[11] },
-// ]
-
-
 let foldersData = [
-  {name: 'travel', links: [1, 2, 3]},
-  {name: 'images', links: [4, 5, 6]},
-  {name: 'job search', links: [7, 8, 9]}
+  {'name': 'travel', links: [
+    { url: "http://www.longlink1.com",
+      id: 21,
+      short_url: "11111111",
+      folder_id: 11
+    },
+    { url: "http://www.longlink2.com",
+      id: 22,
+      short_url: "22222222",
+      folder_id: 11
+    },
+    { url: "http://www.longlink3.com",
+      id: 23,
+      short_url: "33333333",
+      folder_id: 11
+    },
+  ]
+}
+  // {name: 'images', links: [4, 5, 6]},
+  // {name: 'job search', links: [7, 8, 9]}
 ]
 
 const createFolder = (knex, folder) => {
+  console.log(folder.name)
   return knex('folders').insert({
     name: folder.name
   }, 'id')
