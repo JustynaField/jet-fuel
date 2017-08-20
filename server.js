@@ -107,7 +107,8 @@ app.get('/api/v1/links', (request, response) => {
 //POST a LINK
 app.post('/api/v1/links', (request, response) => {
   const newLink = {
-    url: `www.justyna-jet-fuel.herokuapp.com/${shortHash(request.body.url)}`,
+    url: request.body.url,
+    short_url: shortHash(request.body.url),
     folder_id: request.body.folder_id
   }
   console.log('newLink:', newLink)
@@ -143,6 +144,17 @@ app.get('/api/v1/folders/:id/links', (request, response) => {
     })
 })
 
+//
+app.get('/api/v1/links/:shortened', (request, response) => {
+  database('links').where('short_url', request.params.shortened).select('url')
+  .then(link => {
+    console.log('link in server:', link[0].url)
+    response.redirect(`${link[0].url}`)
+  })
+  .catch(error => {
+    response.status(500).json({ error });
+  })
+})
 
 //the code below tells the server to listen for connections on a given port
 app.listen(app.get('port'), () => {
