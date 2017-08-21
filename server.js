@@ -113,12 +113,6 @@ app.post('/api/v1/links', (request, response) => {
     folder_id: request.body.folder_id
   }
 
-// if (validUrl.isUri(newLink)){
-//       alert('Looks like an URL');
-//   } else {
-//       alert('Not a URL');
-// }
-
   for(let requiredParameter of ['url']) {
     if (!newLink[requiredParameter]) {
       return response.status(422).json({

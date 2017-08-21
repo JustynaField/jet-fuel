@@ -53,13 +53,36 @@ describe('API Routes', () => {
       chai.request(server)
       .get('/api/v1/folders')
       .end((error, response) => {
-        console.log(response.body)
+        // console.log(response.body)
         response.should.have.status(200);
         response.should.be.json;
         response.body.should.be.a('object');
         response.body.folders.length.should.equal(1);
         response.body.folders[0].should.have.property('name');
         response.body.folders[0].name.should.equal('travel');
+        done();
+      })
+    })
+
+  })
+
+  describe('GET /api/v1/folders/:id', (request, response) => {
+
+    it.skip('should return folder by id', (done) => {
+      chai.request(server)
+      .get('/api/v1/folders/1')
+      .end((error, response) => {
+        // console.log('console', response.body)
+        response.should.have.status(200);
+        done();
+      })
+    })
+
+    it('should return an error if a specific folder does not exist', (done) => {
+      chai.request(server)
+      .get('/api/v1/folders/100')
+      .end((error, response) => {
+        response.should.have.status(404);
         done();
       })
     })
@@ -81,7 +104,7 @@ describe('API Routes', () => {
         chai.request(server)
         .get('/api/v1/folders')
         .end((error, response) => {
-          console.log(response.body)
+          // console.log(response.body)
           response.should.have.status(200);
           response.should.be.json;
           response.body.folders.should.be.a('array');
@@ -105,8 +128,53 @@ describe('API Routes', () => {
         done();
       })
     })
-
-
   })
+
+  describe('GET /api/v1/links', () => {
+
+    it('should return all of the links', (done) => {
+      chai.request(server)
+      .get('/api/v1/links')
+      .end((error, response) => {
+        console.log('links: ', response.body)
+        response.should.have.status(200);
+        response.should.be.json;
+        response.body.should.be.a('array');
+        response.body.length.should.equal(3);
+        response.body[0].should.have.property('url');
+        response.body[0].should.have.property('short_url');
+        response.body[0].should.have.property('folder_id');
+        response.body[0].should.have.property('created_at');
+        response.body[0].folder_id.should.equal(1)
+        done();
+      })
+    })
+  })
+  //
+  // describe('POST /api/v1/links', () => {
+  //
+  //   it.skip('should post a new link', () => {
+  //     chai.request(server)
+  //     .post('/api/v1/links')
+  //     .send({
+  //
+  //     }).end((error, response) => {
+  //       console.log('POST LINK ', response.body)
+  //     })
+  //   })
+  // })
+
+
+
+  // it('should create a new folder', (done) => {
+  //   chai.request(server)
+  //   .post('/api/v1/folders')
+  //   .send({
+  //     name: 'recipes'
+  //   })
+  //   .end((error, response) => {
+  //     // console.log('console', response.body.id)
+  //     response.should.have.status(201);
+
 
 })
