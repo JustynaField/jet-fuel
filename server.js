@@ -143,7 +143,7 @@ app.get('/api/v1/folders/:id/links', (request, response) => {
     })
 })
 
-//
+//redirect for url:
 app.get('/api/v1/links/:shortened', (request, response) => {
   database('links').where('short_url', request.params.shortened).select('url')
   .then(link => {

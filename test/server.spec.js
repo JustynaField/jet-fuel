@@ -53,7 +53,6 @@ describe('API Routes', () => {
       chai.request(server)
       .get('/api/v1/folders')
       .end((error, response) => {
-        console.log('folders:',response.body)
         response.should.have.status(200);
         response.should.be.json;
         response.body.should.be.a('object');
@@ -77,7 +76,7 @@ describe('API Routes', () => {
       })
     })
 
-    it('should return an error if a specific folder does not exist', (done) => {
+    it('should return an error if a requested folder does not exist', (done) => {
       chai.request(server)
       .get('/api/v1/folders/100')
       .end((error, response) => {
@@ -200,10 +199,31 @@ describe('API Routes', () => {
         done();
       })
     })
-
   })
 
+  describe('GET /api/v1/folders/:id/links', () => {
+
+    it('should return links belonging to a specific folder', (done) => {
+      chai.request(server)
+      .get('/api/v1/folders/1/links')
+      .end((error, response) => {
+        response.should.have.status(200);
+        response.should.be.json;
+        response.body.should.be.a('array');
+        response.body.length.should.equal(3);
+        done();
+      });
+    });
+
+    it.skip('should not return links for folrder that does not exist', (done) => {
+      chai.request(server)
+      .get('/api/v1/folders/55/links')
+      .end((error, response) => {
+        response.should.have.status(404);
+      done()
+      })
+    })
+  });
 
 
-
-})
+});
