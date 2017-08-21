@@ -4,20 +4,20 @@ let foldersData = [
     url: 'http://www.longlink1.com',
     short_url: '11111111',
     folder_id: 1,
-    created_at: '2017-08-21T01:41:05.038Z',
-    updated_at: '2017-08-21T01:41:05.038Z' },
+    created_at: '2017-08-21T01:41:05.038Z'
+  },
   { id: 22,
     url: 'http://www.longlink2.com',
     short_url: '22222222',
     folder_id: 1,
-    created_at: '2017-08-21T01:41:05.040Z',
-    updated_at: '2017-08-21T01:41:05.040Z' },
+    created_at: '2017-08-21T01:41:05.040Z'
+  },
   { id: 23,
     url: 'http://www.longlink3.com',
     short_url: '33333333',
     folder_id: 1,
-    created_at: '2017-08-21T01:41:05.041Z',
-    updated_at: '2017-08-21T01:41:05.041Z' }
+    created_at: '2017-08-21T01:41:05.041Z'
+  }
     ]
   }
 ]

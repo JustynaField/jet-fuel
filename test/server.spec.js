@@ -53,7 +53,7 @@ describe('API Routes', () => {
       chai.request(server)
       .get('/api/v1/folders')
       .end((error, response) => {
-        // console.log(response.body)
+        console.log('folders:',response.body)
         response.should.have.status(200);
         response.should.be.json;
         response.body.should.be.a('object');
@@ -72,7 +72,6 @@ describe('API Routes', () => {
       chai.request(server)
       .get('/api/v1/folders/1')
       .end((error, response) => {
-        // console.log('console', response.body)
         response.should.have.status(200);
         done();
       })
@@ -83,6 +82,7 @@ describe('API Routes', () => {
       .get('/api/v1/folders/100')
       .end((error, response) => {
         response.should.have.status(404);
+        response.body.error.should.equal('Could not find folder with id of 100')
         done();
       })
     })
@@ -96,7 +96,6 @@ describe('API Routes', () => {
         name: 'recipes'
       })
       .end((error, response) => {
-        // console.log('console', response.body.id)
         response.should.have.status(201);
         response.body.should.be.a('object');
         response.body.id.should.have.property('name');
@@ -104,7 +103,6 @@ describe('API Routes', () => {
         chai.request(server)
         .get('/api/v1/folders')
         .end((error, response) => {
-          // console.log(response.body)
           response.should.have.status(200);
           response.should.be.json;
           response.body.folders.should.be.a('array');
@@ -136,45 +134,76 @@ describe('API Routes', () => {
       chai.request(server)
       .get('/api/v1/links')
       .end((error, response) => {
-        console.log('links: ', response.body)
         response.should.have.status(200);
         response.should.be.json;
         response.body.should.be.a('array');
         response.body.length.should.equal(3);
         response.body[0].should.have.property('url');
+        response.body[0].url.should.equal('http://www.longlink1.com');
         response.body[0].should.have.property('short_url');
+        response.body[0].short_url.should.equal('11111111')
         response.body[0].should.have.property('folder_id');
+        response.body[0].folder_id.should.equal(1);
         response.body[0].should.have.property('created_at');
-        response.body[0].folder_id.should.equal(1)
         done();
       })
     })
   })
-  //
-  // describe('POST /api/v1/links', () => {
-  //
-  //   it.skip('should post a new link', () => {
-  //     chai.request(server)
-  //     .post('/api/v1/links')
-  //     .send({
-  //
-  //     }).end((error, response) => {
-  //       console.log('POST LINK ', response.body)
-  //     })
-  //   })
-  // })
+
+  describe('POST /api/v1/links', () => {
+
+    it('should post a new link', (done) => {
+      chai.request(server)
+      .post('/api/v1/links')
+      .send({
+        id: 44,
+        url: 'http://www.longlink4.com',
+        short_url: '44444444',
+        folder_id: 1
+      })
+      .end((error, response) => {
+        response.should.have.status(201);
+        response.body.should.be.a('object');
+        response.body.id.should.have.property('url');
+        response.body.id.url.should.equal('http://www.longlink4.com');
+        response.body.id.should.have.property('short_url');
+        response.body.id.short_url.should.equal('ed6430ef')
+        response.body.id.should.have.property('folder_id');
+        response.body.id.folder_id.should.equal(1);
+        chai.request(server)
+        .get('api/v1/links')
+        .end((error, response) => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.should.be.a('array');
+          response.body.length.should.equal(4);
+          response.body[3].should.have.property('short_url');
+          response.body[3].short_url.should.equal('ed6430ef')
+          response.body[3].should.have.property('folder_id');
+          response.body[3].folder_id.should.equal(1);
+        })
+        done();
+      })
+    })
+
+    it.skip('should not create link if required data is missing', (done) => {
+      chai.request(server)
+      .post('/api/v1/links')
+      .send({
+        id: 55,
+        short_url: '55555555',
+        folder_id: 1
+      })
+      .end((error, response) => {
+        response.should.have.status(422);
+        response.body.error.should.equal('Missing required parameter url');
+        done();
+      })
+    })
+
+  })
 
 
-
-  // it('should create a new folder', (done) => {
-  //   chai.request(server)
-  //   .post('/api/v1/folders')
-  //   .send({
-  //     name: 'recipes'
-  //   })
-  //   .end((error, response) => {
-  //     // console.log('console', response.body.id)
-  //     response.should.have.status(201);
 
 
 })
