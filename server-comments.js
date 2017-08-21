@@ -1,41 +1,33 @@
+//requiring / importing express:
 const express = require('express');
+//specifying what my app is, and that it is using express:
 const app = express();
+//requiring bodyParser - so we can parse the body of an HTTP request:
 const bodyParser = require('body-parser');
+//importing an npm module for shortening links:
 const shortHash = require('short-hash');
-// const moment = require('moment');
+
 
 //DATABASE CONFIGURATION:
-//specifying that we are working in development environment
-//process.env.NODE_ENV allows us to work in different environments
-//process is an object, gives us information about...
-// it knows it's in a production environment because of the fallback
-//we want it to be detected automatically so that it can vary based on where our application is running:
+//we want the environment to be detected automatically ('process.env.NODE_ENV') so that it can vary based on where our application is running; the fallback is the development environment:
 const environment = process.env.NODE_ENV || 'development';
-//connecting to knexfile and its development object
+//specifying configuaration; requiring/importing knexfile.js with its environment objects
 const configuration = require('./knexfile')[environment];
 //requiring knex, passing configuration into knex
 const database = require('knex')(configuration);
 
-// const fs = require('fs');
 
-//we specify the port to be used, in the line below:
+//specifying the port to be used, our app will be running on localhosr:3000
 app.set('port', process.env.PORT || 3000);
-app.locals.title = 'Jet Fuel'
 
 //connecting static files (in the public folder) to the server
 app.use(express.static('public'))
 
 //bodyParser gives an ability to parse the body of an HTTP request
 app.use(bodyParser.json());
-//for url encoded bodies:
+//including an extension for url encoded bodies:
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//storing folders:
-app.locals.folders = {};
-//storing links:
-app.locals.links = {};
-
-// process.env.FOO = 'bar';
 
 //ENDPOINTS:
 //GET request for the HOME PAGE (index.html):
@@ -45,11 +37,15 @@ app.get('/', (request, response) => {
 })
 
 //GET request for the LIST OF FOLDERS:
+//'/api/v1/folders' is the endpoint where we can find the list of folders
 app.get('/api/v1/folders', (request, response) => {
+  //we select (all) folders from the database:
   database('folders').select()
+    //if the response gets resolved and folders are fetched from the database, the status of this response will be 200 (OK), and data (folders) will sent in json format
     .then(folders => {
       response.status(200).json({folders});
     })
+    //otherwise, if something goes wrong, server will send an error 500, also in the format of json
     .catch(error => {
       response.status(500).json({ error })
     })
