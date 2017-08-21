@@ -21,7 +21,6 @@ const printFolderToPage = (folder) => {
 }
 
 const printFolder = (folder) => {
-      // console.log('folder being posted:', folder)
   $('.folders-list').append(
   `<div value="${folder.id}" class="card">
     <h3 class="name">${folder.name}</h3>
@@ -34,7 +33,6 @@ const printAllFolders = (folders) => {
   $('.folders-list').empty();
   for(let i = 0; i<folders.length; i++){
     printFolder(folders[i]);
-    // console.log('folder being posted: ', folders[i])
   }
 }
 
@@ -71,18 +69,14 @@ const fetchFolderWithLinks = (id) => {
     fetch(`/api/v1/folders/${id}/links`)
     .then(res => res.json())
     .then(id => {
-                console.log('folder with links:', id)
       printLinksToFolder(id)
-      //sortLinksInFolder(id)
     })
   })
 }
 
 $('.folders-list').on('click', '.card', function(e) {
   const id = e.currentTarget.attributes.value.nodeValue;
-  // console.log(id)
   fetchFolderWithLinks(id);
-
 })
 
 //fetch folders from database
@@ -98,7 +92,6 @@ const fetchFolders = () => {
 
 //post a folder to database
 const postFolder = (folderName) => {
-
   fetch('/api/v1/folders', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -120,8 +113,6 @@ const folderDetails =
   </div>
 </div>`
 
-  // <div class="sort">Sort by: <button class="most">Most Recent</button><button>Least Recent</button></div>
-
 //expanding folder with information
 $('.folders-list').on('click', '.card', function() {
   const element = $(this)
@@ -134,13 +125,6 @@ $('.folders-list').on('click', '.card', function() {
     $(this).children('.folder-details').empty()
   }
 })
-
-//sorting links
-const sortLinksInFolder = (id) => {
-  $('.folders-list').parent().on('click', '.most', function() {
-    // console.log(hello)
-  })
-}
 
 //LINKS
 $('#shorten-link').on('click', function(e) {
@@ -170,7 +154,6 @@ const postLink = () => {
   .then(res => res.json())
   .then( data => {
     printLinkToPage(data);
-    // console.log('link being posted: ', data)
   })
   .catch(error => console.log('Error posting link: ', error))
 }
