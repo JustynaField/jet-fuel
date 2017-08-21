@@ -1,4 +1,4 @@
-tom//requiring / importing express:
+//requiring / importing express:
 const express = require('express');
 //specifying what my app is, and that it is using express:
 const app = express();
@@ -22,7 +22,6 @@ app.set('port', process.env.PORT || 3000);
 
 //connecting static files (in the public folder) to the server
 app.use(express.static('public'))
-
 //bodyParser gives an ability to parse the body of an HTTP request
 app.use(bodyParser.json());
 //including an extension for url encoded bodies:
@@ -101,6 +100,7 @@ app.get('/api/v1/folders/:id', (request, response) => {
 });
 
 //GET request for all LINKS:
+//requesting all links in the database
 app.get('/api/v1/links', (request, response) => {
   database('links').select()
     .then(links => {
@@ -112,13 +112,20 @@ app.get('/api/v1/links', (request, response) => {
 })
 
 //POST a LINK
+//posting a link to links database
 app.post('/api/v1/links', (request, response) => {
+  //specfying the structure of the new link being posted
   const newLink = {
+  // the new link must include:
+    // - url (long link)
     url: request.body.url,
+    // - shortened url; shortHash returns a shorter version of the full link
     short_url: shortHash(request.body.url),
+    // - folder id, so that we can connect link with its parent folder
     folder_id: request.body.folder_id
   }
 
+  //a required parameter for posting a new link is 'url'; if don't have the 'url' key the response will not be processed
   for(let requiredParameter of ['url']) {
     if (!newLink[requiredParameter]) {
       return response.status(422).json({
@@ -127,6 +134,7 @@ app.post('/api/v1/links', (request, response) => {
     }
   }
 
+  //the new link gets inserted into the 'links' database; "*" means that all of the keys will be included
   database('links').insert(newLink, '*')
     .then(link => {
       response.status(201).json({ id: link[0] })
@@ -138,6 +146,7 @@ app.post('/api/v1/links', (request, response) => {
 
 //GET: requesting all LINKS OF A SPECIFIC FOLDER:
 app.get('/api/v1/folders/:id/links', (request, response) => {
+  //making sure that ':id' in the route matches folder's id:
   database('links').where('folder_id', request.params.id).select()
     .then(links => {
       response.status(200).json(links);
@@ -147,10 +156,14 @@ app.get('/api/v1/folders/:id/links', (request, response) => {
     })
 })
 
-//redirect for url:
+//URL REDIRECT - when user clicks on shortened url it redirects them to correct full web address
+//the enpoint in this case is for the short url
 app.get('/api/v1/links/:shortened', (request, response) => {
+  //we need to make sure that the 'short_url' key of a link object matches the request parameter in the endpoint, when it does we select the long url
   database('links').where('short_url', request.params.shortened).select('url')
+  //we grab that link
   .then(link => {
+    //and redirect to that link's long url
     response.redirect(`${link[0].url}`)
   })
   .catch(error => {
@@ -158,9 +171,11 @@ app.get('/api/v1/links/:shortened', (request, response) => {
   })
 })
 
-//the code below tells the server to listen for connections on a given port
+//the code below tells the server to listen for connections on a given port:
 app.listen(app.get('port'), () => {
+  //in this case the console will log 'Jet Fuel is running on 3000.'
   console.log(`${app.locals.title} is running on ${app.get('port')}.`)
 })
 
+//exporting the app, so it can be accessed by other files
 module.exports = app;
