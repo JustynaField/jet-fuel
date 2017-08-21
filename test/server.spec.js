@@ -48,17 +48,16 @@ describe('API Routes', () => {
     });
   });
 
-
   describe('GET /api/v1/folders', () => {
     it('should return all of the folders', (done) => {
       chai.request(server)
       .get('/api/v1/folders')
       .end((error, response) => {
-        // console.log(response.body)
+        console.log(response.body)
         response.should.have.status(200);
         response.should.be.json;
         response.body.should.be.a('object');
-        // response.body.folders[0].length.should.equal(1);
+        response.body.folders.length.should.equal(1);
         response.body.folders[0].should.have.property('name');
         response.body.folders[0].name.should.equal('travel');
         done();
@@ -86,13 +85,27 @@ describe('API Routes', () => {
           response.should.have.status(200);
           response.should.be.json;
           response.body.folders.should.be.a('array');
-          // response.body.length.should.equal(2);
+          response.body.folders.length.should.equal(2);
           response.body.folders[1].should.have.property('name');
           response.body.folders[1].name.should.equal('recipes');
           done();
         })
       })
     })
+
+    it('should not create a record with missing data', (done) => {
+      chai.request(server)
+      .post('/api/v1/folders')
+      .send({
+        folder: 'projects'
+      })
+      .end((error, response) => {
+        response.should.have.status(422);
+        response.body.error.should.equal('Missing required parameter name');
+        done();
+      })
+    })
+
 
   })
 
