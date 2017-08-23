@@ -50,9 +50,9 @@ const dropDown = (folders) => {
 }
 
 const linkDetails = (link) => {
-    $('.links').append(`<p class="linkz">
-    <a href="http://localhost:3000/api/v1/links/${link.short_url}" target='_blank'>www.justyna-jet-fuel.herokuapp.com/${link.short_url}</a>
-    <span>created: </span>${link.created_at}</p>`)
+  $('.links').append(`<p class="linkz">
+  <a href="http://localhost:3000/api/v1/links/${link.short_url}" target='_blank'>www.justyna-jet-fuel.herokuapp.com/${link.short_url}</a>
+  <span>created: </span>${link.created_at}</p>`)
 }
 
 const printLinksToFolder = (links) => {
@@ -82,12 +82,12 @@ $('.folders-list').on('click', '.card', function(e) {
 //fetch folders from database
 const fetchFolders = () => {
   fetch('/api/v1/folders')
-    .then(res => res.json())
-    .then(data => {
-      printAllFolders(data.folders);
-      dropDown(data.folders)
-    })
-    .catch(error => console.log('Error fetching folders: ', error))
+  .then(res => res.json())
+  .then(data => {
+    printAllFolders(data.folders);
+    dropDown(data.folders)
+  })
+  .catch(error => console.log('Error fetching folders: ', error))
 }
 
 //post a folder to database

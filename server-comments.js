@@ -103,12 +103,12 @@ app.get('/api/v1/folders/:id', (request, response) => {
 //requesting all links in the database
 app.get('/api/v1/links', (request, response) => {
   database('links').select()
-    .then(links => {
-      response.status(200).json(links);
-    })
-    .catch(error => {
-      response.status(500).json({ error })
-    })
+  .then(links => {
+    response.status(200).json(links);
+  })
+  .catch(error => {
+    response.status(500).json({ error })
+  })
 })
 
 //POST a LINK

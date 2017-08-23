@@ -22,7 +22,6 @@ let foldersData = [
 ]
 
 const createFolder = (knex, folder) => {
-  console.log(folder.name)
   return knex('folders').insert({
     name: folder.name
   }, 'id')
