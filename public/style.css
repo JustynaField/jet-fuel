@@ -42,10 +42,9 @@ button {
   margin-bottom: 40px;
 }
 
-.form {
+.center {
   height: 36px;
-  display: flex;
-  justify-content: space-around;
+  margin: auto;
   margin: 10px 0;
 }
 
@@ -92,9 +91,9 @@ h2 {
   text-align: center
 }
 
-.create {
-  width: 20%;
-  margin: 0;
+.create-first {
+  font-size: 20px;
+  padding: 5px;
 }
 
 #select-folder {
