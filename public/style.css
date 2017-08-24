@@ -136,12 +136,15 @@ h2 {
 
 .card {
   margin: 10px;
-  min-width: 60%;
+  min-width: 530px;
   min-height: 36px;
   border: 2px solid #edc350;
   border-radius: 10px;
 }
 
+.name {
+  text-align: center;
+}
 
 .card:hover {
   background-color: #edc350;
