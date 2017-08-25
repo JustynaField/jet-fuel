@@ -16,6 +16,7 @@
     "knex": "^0.13.0",
     "moment": "^2.18.1",
     "pg": "^7.1.2",
+    "regex": "^0.1.1",
     "short-hash": "^1.0.0"
   },
   "devDependencies": {
