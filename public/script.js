@@ -1,11 +1,12 @@
-$(document).ready(function() {
+$(document).ready(() => {
   fetchFolders();
 })
 
 //form for creating folders
-$('#create-folder').on('click', function(e) {
+$('#create-folder').on('click', (e) => {
   e.preventDefault();
   const foldername = $('#folder-name').val()
+
   postFolder(foldername);
   fetchFolders();
   $('#folder-name').val('');
@@ -74,8 +75,9 @@ const fetchFolderWithLinks = (id) => {
   })
 }
 
-$('.folders-list').on('click', '.card', function(e) {
+$('.folders-list').on('click', '.card', (e) => {
   const id = e.currentTarget.attributes.value.nodeValue;
+
   fetchFolderWithLinks(id);
 })
 
@@ -127,12 +129,12 @@ $('.folders-list').on('click', '.card', function() {
 })
 
 //LINKS
-$('#shorten-link').on('click', function(e) {
+$('#shorten-link').on('click', (e) => {
   e.preventDefault();
   const url = $('#url-input')
   const selectedFolder = $('#select-folder').val()
 
-  postLink();
+  verifyURL();
   url.val('')
 })
 
@@ -156,4 +158,16 @@ const postLink = () => {
     printLinkToPage(data);
   })
   .catch(error => console.log('Error posting link: ', error))
+}
+
+
+const verifyURL = () => {
+  const inputValue = $('#url-input').val();
+  const re = new RegExp('^(http://|https://)+[a-zA-Z0-9]*[^ ]*$');
+  const ok = re.test(inputValue);
+
+  if(!ok) {
+    alert('This is not a correct URL address. Please enter valid URL.')
+    postLink();
+  }
 }
