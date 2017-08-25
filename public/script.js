@@ -135,7 +135,7 @@ $('#shorten-link').on('click', (e) => {
   const selectedFolder = $('#select-folder').val()
 
   verifyURL();
-  postLink();
+  // postLink();
   url.val('')
 })
 
@@ -164,10 +164,13 @@ const postLink = () => {
 
 const verifyURL = () => {
   const inputValue = $('#url-input').val();
+  // const submitBtn =$('#shorten-link');
   const re = new RegExp('^(http://|https://)+[a-zA-Z0-9]*[^ ]*$');
   const ok = re.test(inputValue);
 
   if(!ok) {
     alert('This is not a correct URL address. Please enter valid URL.')
+  } else {
+    postLink();
   }
 }
