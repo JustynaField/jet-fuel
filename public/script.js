@@ -135,6 +135,7 @@ $('#shorten-link').on('click', (e) => {
   const selectedFolder = $('#select-folder').val()
 
   verifyURL();
+  postLink();
   url.val('')
 })
 
@@ -168,6 +169,5 @@ const verifyURL = () => {
 
   if(!ok) {
     alert('This is not a correct URL address. Please enter valid URL.')
-    postLink();
   }
 }
