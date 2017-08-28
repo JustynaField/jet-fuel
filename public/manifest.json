@@ -1,8 +1,4 @@
 {
   "short-name": "Jet Fuel",
-  "name": "Jet Fuel - Link Shortener",
-  "icons": [
-    "src": "./icon.svg",
-    "type": "icon/svg",
-  ]
+  "name": "Jet Fuel - Link Shortener"
 }
