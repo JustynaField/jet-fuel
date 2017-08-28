@@ -1,4 +1,11 @@
 {
   "short-name": "Jet Fuel",
-  "name": "Jet Fuel - Link Shortener"
+  "name": "Jet Fuel - Link Shortener",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "type": "icon/svg"
+    }
+  ],
+  "theme_color": "#69adb5"
 }
