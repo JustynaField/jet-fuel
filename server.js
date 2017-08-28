@@ -10,11 +10,11 @@ const database = require('knex')(configuration);
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Jet Fuel'
 
-const requireHTTPS = () => {
+// const requireHTTPS = () => {
+//
+// }
 
-}
-
-app.use(requireHTTPS);
+// app.use('/', requireHTTPS);
 app.use(express.static('public'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
