@@ -10,8 +10,8 @@ const database = require('knex')(configuration);
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Jet Fuel'
 
-const requireHTTPS = (request, response, next) => {
-  !request.secure ? response.redirect('https://' + request.hostname + request.url) : next ()
+const requireHTTPS = () => {
+
 }
 
 app.use(requireHTTPS);
