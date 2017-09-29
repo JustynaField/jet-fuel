@@ -8,6 +8,7 @@ This application allows user to shorten a long URL and save it in a thematic fol
 #### Link to Deployed Application: 
 [Heroku Link](https://justyna-jet-fuel.herokuapp.com)
 
-[App screenshot](screenshots/jet-fuel.png)
+![App screenshot](screenshots/jet-fuel.png)
+
 
 
